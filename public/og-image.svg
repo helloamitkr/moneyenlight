@@ -1,0 +1,30 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050b10"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="50%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="60" y="520" width="200" height="4" rx="2" fill="url(#accent)"/>
+  <text x="60" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#e6f4ef">
+    Money<tspan fill="#34d399">Enlight</tspan>
+  </text>
+  <text x="60" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#e6f4ef" opacity="0.7">
+    A 12-year smart investing journey
+  </text>
+  <text x="60" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#e6f4ef" opacity="0.7">
+    documented on YouTube.
+  </text>
+  <text x="60" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#34d399" opacity="0.9">
+    SIP Calculator  ·  Lumpsum Calculator  ·  EMI Calculator
+  </text>
+  <text x="60" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#e6f4ef" opacity="0.4">
+    moneyenlight.com
+  </text>
+</svg>
