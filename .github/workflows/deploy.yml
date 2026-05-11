@@ -36,6 +36,7 @@ jobs:
 
       - name: Deploy to S3
         run: |
+          # 1) Upload long-cached assets (JS, CSS, images, etc.)
           aws s3 sync out/ s3://${{ vars.S3_BUCKET }} \
             --delete \
             --cache-control "public, max-age=31536000, immutable" \
@@ -43,27 +44,29 @@ jobs:
             --exclude "sitemap.xml" \
             --exclude "robots.txt"
 
-          # HTML + SEO files get short cache so updates propagate fast
+          # 2) HTML + SEO files get short cache so updates propagate fast
+          #    NOTE: --exclude "*" must come BEFORE --include so includes win
           aws s3 sync out/ s3://${{ vars.S3_BUCKET }} \
-            --delete \
             --cache-control "public, max-age=0, must-revalidate" \
+            --exclude "*" \
             --include "*.html" \
             --include "sitemap.xml" \
-            --include "robots.txt" \
-            --exclude "*" \
-            --content-type "text/html" \
-            --no-guess-mime-type
+            --include "robots.txt"
 
-          # Fix content-type for sitemap and robots
-          aws s3 cp s3://${{ vars.S3_BUCKET }}/sitemap.xml s3://${{ vars.S3_BUCKET }}/sitemap.xml \
-            --content-type "application/xml" \
-            --cache-control "public, max-age=0, must-revalidate" \
-            --metadata-directive REPLACE
+          # 3) Fix content-type for sitemap and robots (only if they exist)
+          if aws s3api head-object --bucket ${{ vars.S3_BUCKET }} --key sitemap.xml 2>/dev/null; then
+            aws s3 cp s3://${{ vars.S3_BUCKET }}/sitemap.xml s3://${{ vars.S3_BUCKET }}/sitemap.xml \
+              --content-type "application/xml" \
+              --cache-control "public, max-age=0, must-revalidate" \
+              --metadata-directive REPLACE
+          fi
 
-          aws s3 cp s3://${{ vars.S3_BUCKET }}/robots.txt s3://${{ vars.S3_BUCKET }}/robots.txt \
-            --content-type "text/plain" \
-            --cache-control "public, max-age=0, must-revalidate" \
-            --metadata-directive REPLACE
+          if aws s3api head-object --bucket ${{ vars.S3_BUCKET }} --key robots.txt 2>/dev/null; then
+            aws s3 cp s3://${{ vars.S3_BUCKET }}/robots.txt s3://${{ vars.S3_BUCKET }}/robots.txt \
+              --content-type "text/plain" \
+              --cache-control "public, max-age=0, must-revalidate" \
+              --metadata-directive REPLACE
+          fi
 
       - name: Invalidate CloudFront
         run: |
