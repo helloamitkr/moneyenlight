@@ -90,7 +90,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="hidden text-xs text-white/40 md:inline">· {site.tagline}</span>
             </Link>
             <nav className="flex items-center gap-2 text-sm text-white/70 md:gap-5">
-              <Link href="/calculators" className="hidden hover:text-white md:inline">Calculators</Link>
+              <Link href="/" className="hidden hover:text-white md:inline">Journey</Link>
+              <div className="group relative hidden md:inline-block">
+                <span className="cursor-default hover:text-white">Tools</span>
+                <div className="invisible absolute right-0 top-full z-50 min-w-[160px] pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                  <div className="rounded-lg border border-white/10 bg-[#0a1118] p-1 shadow-xl">
+                    <Link
+                      href="/calculators"
+                      className="block rounded-md px-3 py-2 text-sm text-white/70 hover:bg-white/5 hover:text-white"
+                    >
+                      Calculators
+                    </Link>
+                    <Link
+                      href="/capital-gains"
+                      className="block rounded-md px-3 py-2 text-sm text-white/70 hover:bg-white/5 hover:text-white"
+                    >
+                      Capital Gains Tax
+                    </Link>
+                  </div>
+                </div>
+              </div>
               <a
                 href={site.youtube.url}
                 target="_blank"
